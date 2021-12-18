@@ -5,49 +5,102 @@
 %define keepstatic 1
 Name     : sratom
 Version  : 0.6.8
-Release  : 330
+Release  : 331
 URL      : file:///aot/build/clearlinux/packages/sratom/sratom-v0.6.8.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/sratom/sratom-v0.6.8.tar.gz
 Summary  : LV2 Atom RDF serialisation library
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: sratom-lib = %{version}-%{release}
+BuildRequires : alsa-lib-dev
+BuildRequires : alsa-lib-dev32
+BuildRequires : autogen
+BuildRequires : autogen-dev
+BuildRequires : automake
+BuildRequires : automake-dev
+BuildRequires : binutils-dev
+BuildRequires : buildreq-cmake
 BuildRequires : buildreq-configure
 BuildRequires : buildreq-distutils3
 BuildRequires : bzip2-dev
 BuildRequires : bzip2-staticdev
+BuildRequires : cairo-dev
 BuildRequires : clr-rpm-config
+BuildRequires : expat-dev
+BuildRequires : expat-staticdev
+BuildRequires : fftw-dev
+BuildRequires : findutils
+BuildRequires : flac-dev
+BuildRequires : flac-dev32
+BuildRequires : flac-staticdev
+BuildRequires : flac-staticdev32
 BuildRequires : gcc
 BuildRequires : gcc-dev
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
 BuildRequires : gcc-libs-math
 BuildRequires : gcc-libstdc++32
 BuildRequires : gcc-libubsan
 BuildRequires : gcc-locale
 BuildRequires : glibc-dev
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : glibc-staticdev
+BuildRequires : gtk+-dev
 BuildRequires : libedit
 BuildRequires : libedit-dev
 BuildRequires : libffi-dev
 BuildRequires : libffi-staticdev
 BuildRequires : libgcc1
+BuildRequires : libogg-dev
+BuildRequires : libogg-dev32
+BuildRequires : libogg-staticdev
+BuildRequires : libogg-staticdev32
+BuildRequires : libsndfile-dev
+BuildRequires : libsndfile-staticdev
 BuildRequires : libstdc++
 BuildRequires : libtool-dev
+BuildRequires : libvorbis-dev
+BuildRequires : libvorbis-dev32
+BuildRequires : libvorbis-staticdev
+BuildRequires : libvorbis-staticdev32
 BuildRequires : libxml2-dev
 BuildRequires : libxml2-staticdev
+BuildRequires : lv2
+BuildRequires : lv2-dev
 BuildRequires : ncurses-dev
+BuildRequires : octave-dev
+BuildRequires : opus
+BuildRequires : opus-dev
+BuildRequires : opus-lib
+BuildRequires : opus-staticdev
 BuildRequires : pcre-dev
 BuildRequires : pcre-staticdev
 BuildRequires : pcre2-dev
 BuildRequires : pcre2-staticdev
 BuildRequires : pkg-config
 BuildRequires : pkg-config-dev
+BuildRequires : pypi(html5lib)
+BuildRequires : pypi(importlib_metadata)
+BuildRequires : pypi(isodate)
+BuildRequires : pypi(pyparsing)
+BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : python3-staticdev
+BuildRequires : rdflib
+BuildRequires : sed
 BuildRequires : serd
 BuildRequires : serd-dev
 BuildRequires : serd-staticdev
 BuildRequires : sord
 BuildRequires : sord-dev
 BuildRequires : sord-staticdev
+BuildRequires : speex-dev
+BuildRequires : speex-staticdev
+BuildRequires : speexdsp-dev
+BuildRequires : speexdsp-staticdev
+BuildRequires : sqlite-autoconf-dev
+BuildRequires : sqlite-autoconf-dev32
 BuildRequires : xz-dev
 BuildRequires : xz-staticdev
 BuildRequires : yaml-cpp
@@ -68,6 +121,34 @@ Sratom is a small library for serialising LV2 atoms to and from RDF, for
 converting between binary and text or storing in a model.  For more
 information, see <http://drobilla.net/software/sratom>.
 
+%package dev
+Summary: dev components for the sratom package.
+Group: Development
+Requires: sratom-lib = %{version}-%{release}
+Provides: sratom-devel = %{version}-%{release}
+Requires: sratom = %{version}-%{release}
+
+%description dev
+dev components for the sratom package.
+
+
+%package lib
+Summary: lib components for the sratom package.
+Group: Libraries
+
+%description lib
+lib components for the sratom package.
+
+
+%package staticdev
+Summary: staticdev components for the sratom package.
+Group: Default
+Requires: sratom-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the sratom package.
+
+
 %prep
 %setup -q -n sratom
 cd %{_builddir}/sratom
@@ -82,7 +163,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639836108
+export SOURCE_DATE_EPOCH=1639846246
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
@@ -327,3 +408,18 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/sratom-0/sratom/sratom.h
+/usr/lib64/libsratom-0.so
+/usr/lib64/pkgconfig/sratom-0.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libsratom-0.so.0
+/usr/lib64/libsratom-0.so.0.6.8
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libsratom-0.a

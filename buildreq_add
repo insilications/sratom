@@ -56,7 +56,6 @@ libxml2-dev
 libxml2-staticdev
 lv2
 lv2-dev
-lv2-staticdev
 ncurses-dev
 octave-dev
 opus
